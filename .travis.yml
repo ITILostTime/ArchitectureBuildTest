@@ -37,11 +37,11 @@ before_install:
 
 install:
   - |
-    if [[ -z "${DOTNET_BUILD+x}" ]]; then
+    if [[ "${DOTNET_BUILD+x}" ]]; then
       curl -sSL https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version "$CLI_VERSION" --install-dir "$DOTNET_INSTALL_DIR"
     fi
   - |
-    if [[ -z "${NODE_BUILD+x}" ]]; then
+    if [[ "${NODE_BUILD+x}" ]]; then
       nvm install stable
       nvm use stable
       cd ./src/ITI.PrimarySchool.WebApp/App/primary-school && yarn
@@ -54,10 +54,10 @@ install:
 
 script:  
   - |
-    if [[ -z "${DOTNET_BUILD+x}" ]]; then
+    if [[ "${DOTNET_BUILD+x}" ]]; then
       ./scripts/dotnetbuild.sh
     fi
   - |
-    if [[ -z "${NODE_BUILD+x}" ]]; then
+    if [[ "${NODE_BUILD+x}" ]]; then
       cd ./src/ITI.PrimarySchool.WebApp/App/primary-school && yarn build
     fi
