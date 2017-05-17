@@ -4,10 +4,13 @@ git:
 
 language: csharp  
 solution: NetCoreSample.sln
-#sudo: required  
+sudo: required  
 dist: trusty  
-env:  
-  - CLI_VERSION=latest
+
+env:
+  matrix:
+    - DOTNET_BUILD=1 CLI_VERSION=latest DOTNET_INSTALL_DIR="$PWD/.dotnetcli" PATH="$DOTNET_INSTALL_DIR:$PATH"
+    - NODE_BUILD=1
 
 addons:  
   apt:
@@ -29,22 +32,32 @@ branches:
   - master
   - dev
 
-before_install:  
+before_install:
   - chmod +x ./scripts/dotnetbuild.sh
-#  - chmod +x ./scripts/yarnbuild.sh
 
 install:
-  - . $HOME/.nvm/nvm.sh
-  - nvm install stable
-  - nvm use stable
-  - export DOTNET_INSTALL_DIR="$PWD/.dotnetcli"
-  - curl -sSL https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version "$CLI_VERSION" --install-dir "$DOTNET_INSTALL_DIR"
-  - export PATH="$DOTNET_INSTALL_DIR:$PATH"  
+  - |
+    if [[ -z "${DOTNET_BUILD+x}" ]]; then
+      curl -sSL https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version "$CLI_VERSION" --install-dir "$DOTNET_INSTALL_DIR"
+    fi
+  - |
+    if [[ -z "${NODE_BUILD+x}" ]]; then
+      nvm install stable
+      nvm use stable
+      cd ./src/ITI.PrimarySchool.WebApp/App/primary-school && yarn
+    fi
+
 #  - yarn
 
 #cache:
-  yarn: true
+#  yarn: true
 
 script:  
-  - ./scripts/dotnetbuild.sh
-#  - ./scripts/yarnbuild.sh
+  - |
+    if [[ -z "${DOTNET_BUILD+x}" ]]; then
+      ./scripts/dotnetbuild.sh
+    fi
+  - |
+    if [[ -z "${NODE_BUILD+x}" ]]; then
+      cd ./src/ITI.PrimarySchool.WebApp/App/primary-school && yarn build
+    fi
