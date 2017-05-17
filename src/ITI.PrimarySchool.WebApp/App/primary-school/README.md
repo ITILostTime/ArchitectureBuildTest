@@ -1,6 +1,6 @@
 # primary-school
 
-> Client-side Vue application for PrimarySchool.
+> Client-side Vue application for PrimarySchool. And build with Travis.
 
 ## Build Setup
 
