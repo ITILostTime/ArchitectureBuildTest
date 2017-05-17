@@ -30,6 +30,7 @@ branches:
 
 before_install:  
    - chmod +x ./scripts/dotnetbuild.sh
+   - chmod +x ./scripts/yarnbuild.sh
 
 install:  
   - export DOTNET_INSTALL_DIR="$PWD/.dotnetcli"
