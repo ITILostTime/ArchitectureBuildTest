@@ -12,15 +12,6 @@ env:
     - DOTNET_BUILD=1 CLI_VERSION=latest DOTNET_INSTALL_DIR="$PWD/.dotnetcli" PATH="$DOTNET_INSTALL_DIR:$PATH"
     - NODE_BUILD=1
 
-addons:  
-  apt:
-    packages:
-    - gettext
-    - libcurl4-openssl-dev
-    - libicu-dev
-    - libssl-dev
-    - libunwind8
-    - zlib1g
 mono:  
   - 4.2.3
 os:  
@@ -38,6 +29,7 @@ before_install:
 install:
   - |
     if [[ "${DOTNET_BUILD+x}" ]]; then
+      apt-get install gettext libcurl4-openssl-dev libicu-dev libssl-dev libunwind8 zlib1g
       curl -sSL https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version "$CLI_VERSION" --install-dir "$DOTNET_INSTALL_DIR"
     fi
   - |
@@ -46,11 +38,6 @@ install:
       nvm use stable
       pushd ./src/ITI.PrimarySchool.WebApp/App/primary-school && yarn && popd
     fi
-
-#  - yarn
-
-#cache:
-#  yarn: true
 
 script:  
   - |
@@ -61,3 +48,11 @@ script:
     if [[ "${NODE_BUILD+x}" ]]; then
       pushd ./src/ITI.PrimarySchool.WebApp/App/primary-school && yarn build && popd
     fi
+
+notifications:
+  email:
+    recipients:
+      - kore@intechinfo.fr
+      - vanbutsele@intechinfo.fr
+    on_success: always
+    on_failure: always

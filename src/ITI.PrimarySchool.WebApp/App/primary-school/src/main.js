@@ -10,17 +10,17 @@ import Home from './components/Home.vue'
 import Login from './components/Login.vue'
 import Logout from './components/Logout.vue'
 
-import ClassList from './components/classes/ClassList.vue'
-import ClassEdit from './components/classes/ClassEdit.vue'
+import ClassList from './components/Classes/ClassList.vue'
+import ClassEdit from './components/Classes/ClassEdit.vue'
 
-import StudentList from './components/students/StudentList.vue'
-import StudentEdit from './components/students/StudentEdit.vue'
+import StudentList from './components/Students/StudentList.vue'
+import StudentEdit from './components/Students/StudentEdit.vue'
 
-import TeacherList from './components/teachers/TeacherList.vue'
-import TeacherEdit from './components/teachers/TeacherEdit.vue'
-import TeacherAssign from './components/teachers/TeacherAssign.vue'
+import TeacherList from './components/Teachers/TeacherList.vue'
+import TeacherEdit from './components/Teachers/TeacherEdit.vue'
+import TeacherAssign from './components/Teachers/TeacherAssign.vue'
 
-import FollowingList from './components/github/FollowingList.vue'
+import FollowingList from './components/Github/FollowingList.vue'
 
 import AuthService from './services/AuthService'
 
@@ -54,8 +54,8 @@ const router = new VueRouter({
 
     { path: '', component: Home, beforeEnter: requireAuth },
 
-    { path: '/classes', component: ClassList, beforeEnter: requireAuth },
-    { path: '/classes/:mode([create|edit]+)/:id?', component: ClassEdit, beforeEnter: requireAuth },
+    { path: '/Classes', component: ClassList, beforeEnter: requireAuth },
+    { path: '/Classes/:mode([create|edit]+)/:id?', component: ClassEdit, beforeEnter: requireAuth },
 
     { path: '/students', component: StudentList, beforeEnter: requireAuth },
     { path: '/students/:mode([create|edit]+)/:id?', component: StudentEdit, beforeEnter: requireAuth },
