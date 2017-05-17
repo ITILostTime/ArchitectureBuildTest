@@ -1,22 +1,13 @@
-# safelist, only build theses branches
-branches:
-  only:
-  - master
-  - dev
 
 #define 
 git:
   depth: 3
 
-#Define c# build
-language: csharp
+language: csharp  
 sudo: required  
-#cancel mono
-mono: none
-dotnet: 1.1.1
-dist: trusty
-solution: NetCoreSample.sln
-
+dist: trusty  
+env:  
+  - CLI_VERSION=latest
 addons:  
   apt:
     packages:
@@ -26,47 +17,23 @@ addons:
     - libssl-dev
     - libunwind8
     - zlib1g
+mono:  
+  - 4.2.3
 os:  
   - linux
 
-node_js:
-  - "7"
 
-#nuget restore
+# safelist, only build theses branches
+branches:
+  only:
+  - master
+  - dev
+
 before_install:  
-
+  - if test "$TRAVIS_OS_NAME" == "osx"; then brew update; brew install openssl; ln -s /usr/local/opt/openssl/lib/libcrypto.1.0.0.dylib /usr/local/lib/; ln -s /usr/local/opt/openssl/lib/libssl.1.0.0.dylib /usr/local/lib/; fiopenssl; fi
 install:  
-#  - nuget restore NetCoreSample.sln
   - export DOTNET_INSTALL_DIR="$PWD/.dotnetcli"
   - curl -sSL https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version "$CLI_VERSION" --install-dir "$DOTNET_INSTALL_DIR"
   - export PATH="$DOTNET_INSTALL_DIR:$PATH"  
-  - yarn
-
-cache:
-  yarn: true
-
-script: 
-  - yarn run test
-  - yarn run build
-#.net restore and build
+script:  
   - ./build.sh
-
-before_deploy: "echo 'ready?'"
-
-deploy:
-  #provider: script
-  #script: ./scripts/deploy.sh
-  #skip_cleanup: true
-  #on:
-  #  branch: master
-env:
-  - NODE_VERSION="0.12"
-  - CLI_VERSION=latest
-  global:
-    - NODE_ENV=production
-    #GITHUB_TOKEN
-    - secure: enCgJW0s2x5lYzR6qnH2wPcb8flI9hrbuVQnfQCee0VG3z8HmHRzyGRIlDep0K1u+TvWVD0ueQ29XMcQScjnWMe8wgMPGlWztHS1dcg/MV9QDg38fLshTT2IdZDcijo1N4lh/SZF+6c+LUjeyj+IzZAW/41tgOkdUJtuuJQwNJ4Fe3deP3sVucsjgAvGOlkmSJ7U5Q3mpK4YD59M2daJW5WUMb3YBazQXAIcodN/bWl58GezuR3tMeg12rVDQvvxboCCSB+CwH6YOvdbGJStIrQnnmRlaG+Oj0pq38whNtkIZH7SMJlatF2m8KGmT16EwYknpsUp1myRC62919PXgG6W1bmtRVN/Y8HQJ95aGFYcOJBa87kQTX9oXKUk33eI7uE2ALnbNFLyc44Qu1Qgfom5BbMtqgCYL5qA/KoQMKc3b2r+PbGr0LWamY6I4uUkZRxsO6HBIUhE+2gPlE6I+dAl2p/5lMFrrxamFVNkRRB18buty013/KsCJffwHBSFQ45LSdSscLa+E/7BqPn7aohYRuKTbWUdauId2F8iI63JiUciXZaNsOnG7fEv9OSyrqfechPFGYOzq9+IgrDm9QdG/AjNkYczr+lSqTe8lY3/fs8ZcBUi9KK8WjUD7znRcPaxqBaJlHo+2EYUP/PXkWQxA1sT85uGJauMO+WPdtY=
-    - GIT_DEPLOY_REPO=https://$GITHUB_TOKEN@github.com/ITILostTime/ArchitectureBuildTest.git
-#########################
-
-
