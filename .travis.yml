@@ -31,7 +31,7 @@ branches:
   - dev
 
 before_install:  
-   - chmod +x dotnet
+   - chmod +x ./scripts/dotnetbuild.sh
 
 install:  
   - export DOTNET_INSTALL_DIR="$PWD/.dotnetcli"
