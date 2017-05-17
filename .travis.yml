@@ -44,7 +44,7 @@ install:
     if [[ "${NODE_BUILD+x}" ]]; then
       nvm install stable
       nvm use stable
-      cd ./src/ITI.PrimarySchool.WebApp/App/primary-school && yarn
+      pushd ./src/ITI.PrimarySchool.WebApp/App/primary-school && yarn && popd
     fi
 
 #  - yarn
@@ -59,5 +59,5 @@ script:
     fi
   - |
     if [[ "${NODE_BUILD+x}" ]]; then
-      cd ./src/ITI.PrimarySchool.WebApp/App/primary-school && yarn build
+      pushd ./src/ITI.PrimarySchool.WebApp/App/primary-school && yarn build && popd
     fi
