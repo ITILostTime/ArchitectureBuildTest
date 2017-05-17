@@ -25,11 +25,14 @@ branches:
 
 before_install:
   - chmod +x ./scripts/dotnetbuild.sh
+  - |
+    if [[ "${DOTNET_BUILD+x}" ]]; then
+      sudo apt-get install -y gettext libcurl4-openssl-dev libicu-dev libssl-dev libunwind8 zlib1g
+    fi
 
 install:
   - |
     if [[ "${DOTNET_BUILD+x}" ]]; then
-      apt-get install gettext libcurl4-openssl-dev libicu-dev libssl-dev libunwind8 zlib1g
       curl -sSL https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version "$CLI_VERSION" --install-dir "$DOTNET_INSTALL_DIR"
     fi
   - |

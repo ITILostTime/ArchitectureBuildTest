@@ -20,7 +20,7 @@ import TeacherList from './components/Teachers/TeacherList.vue'
 import TeacherEdit from './components/Teachers/TeacherEdit.vue'
 import TeacherAssign from './components/Teachers/TeacherAssign.vue'
 
-import FollowingList from './components/Github/FollowingList.vue'
+import FollowingList from './components/GitHub/FollowingList.vue'
 
 import AuthService from './services/AuthService'
 
