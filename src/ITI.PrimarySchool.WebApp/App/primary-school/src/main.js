@@ -54,8 +54,8 @@ const router = new VueRouter({
 
     { path: '', component: Home, beforeEnter: requireAuth },
 
-    { path: '/Classes', component: ClassList, beforeEnter: requireAuth },
-    { path: '/Classes/:mode([create|edit]+)/:id?', component: ClassEdit, beforeEnter: requireAuth },
+    { path: '/classes', component: ClassList, beforeEnter: requireAuth },
+    { path: '/classes/:mode([create|edit]+)/:id?', component: ClassEdit, beforeEnter: requireAuth },
 
     { path: '/students', component: StudentList, beforeEnter: requireAuth },
     { path: '/students/:mode([create|edit]+)/:id?', component: StudentEdit, beforeEnter: requireAuth },
