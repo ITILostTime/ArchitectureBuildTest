@@ -48,7 +48,7 @@ script:
   - |
     if [[ "${DOTNET_BUILD+x}" ]]; then
       ./scripts/dotnetbuild.sh
-      mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./src/ITI.PrimarySchool.DAL.Test/bin/Release/netcoreapp1.1/ITI.PrimarySchool.DAL.Tests.dll
+      mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./src/ITI.PrimarySchool.DAL.Tests/bin/Release/netcoreapp1.1/ITI.PrimarySchool.DAL.Tests.dll
     fi
   - |
     if [[ "${NODE_BUILD+x}" ]]; then
