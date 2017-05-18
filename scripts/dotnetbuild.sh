@@ -17,11 +17,11 @@ dotnet restore
 # dotnet test ./test/TEST_PROJECT_NAME -c Release -f netcoreapp1.0
 
 # Instead, run directly with mono for the full .net version 
-#dotnet build ./test/TEST_PROJECT_NAME -c Release -f net451
+#dotnet build ./src/ITI.PrimarySchool.DAL.Test -c Release -f net451
 
 #mono \  
-#./test/TEST_PROJECT_NAME/bin/Release/net451/*/dotnet-test-xunit.exe \
-#./test/TEST_PROJECT_NAME/bin/Release/net451/*/TEST_PROJECT_NAME.dll
+#./src/ITI.PrimarySchool.DAL.Test/bin/Release/net451/*/dotnet-test-xunit.exe \
+#./src/ITI.PrimarySchool.DAL.Test/bin/Release/net451/*/TEST_PROJECT_NAME.dll
 
 revision=${TRAVIS_JOB_ID:=1}  
 revision=$(printf "%04d" $revision) 
