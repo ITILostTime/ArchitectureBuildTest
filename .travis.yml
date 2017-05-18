@@ -48,7 +48,6 @@ script:
   - |
     if [[ "${DOTNET_BUILD+x}" ]]; then
       ./scripts/dotnetbuild.sh
-      xbuild /p:Configuration=Release NetCoreSample.sln
       mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe./src/ITI.PrimarySchool.DAL.Test/bin/Release/netcoreapp1.1/ITI.PrimarySchool.DAL.Tests.dll
     fi
   - |
