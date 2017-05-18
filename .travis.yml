@@ -2,7 +2,7 @@
 git:
   depth: 3
 
-language: csharp  
+language: csharp
 solution: NetCoreSample.sln
 sudo: required  
 dist: trusty  
@@ -50,7 +50,12 @@ script:
   - |
     if [[ "${NODE_BUILD+x}" ]]; then
       pushd ./src/ITI.PrimarySchool.WebApp/App/primary-school && yarn build && popd
+      #js test
     fi
+
+#deploy
+#cleanup
+#publish
 
 notifications:
   email:

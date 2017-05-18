@@ -26,4 +26,6 @@ dotnet restore
 revision=${TRAVIS_JOB_ID:=1}  
 revision=$(printf "%04d" $revision) 
 
+#switch release
+
 dotnet pack ./src/ITI.PrimarySchool.WebApp -c Release -o ./artifacts --version-suffix=$revision  
