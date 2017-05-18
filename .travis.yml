@@ -34,6 +34,7 @@ install:
   - |
     if [[ "${DOTNET_BUILD+x}" ]]; then
       curl -sSL https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version "$CLI_VERSION" --install-dir "$DOTNET_INSTALL_DIR"
+      nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
     fi
   - |
     if [[ "${NODE_BUILD+x}" ]]; then
@@ -42,19 +43,22 @@ install:
       pushd ./src/ITI.PrimarySchool.WebApp/App/primary-school && yarn && popd
     fi
 
+
 script:  
   - |
     if [[ "${DOTNET_BUILD+x}" ]]; then
       ./scripts/dotnetbuild.sh
+      xbuild /p:Configuration=Release NetCoreSample.sln
+      mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe./src/ITI.PrimarySchool.DAL.Test/bin/Release/netcoreapp1.1/ITI.PrimarySchool.DAL.Tests.dll
     fi
   - |
     if [[ "${NODE_BUILD+x}" ]]; then
       pushd ./src/ITI.PrimarySchool.WebApp/App/primary-school && yarn build && popd
-      #js test
+      #pushd ./src/ITI.PrimarySchool.WebApp/App/primary-school && yarn test && popd
     fi
 
-#deploy
 #cleanup
+#deploy
 #publish
 
 notifications:
