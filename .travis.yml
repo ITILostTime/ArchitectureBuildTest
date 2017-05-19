@@ -2,38 +2,37 @@
 git:
   depth: 3
 
-language: csharp
-solution: NetCoreSample.sln
-sudo: required  
-dist: trusty  
-
-env:
-  matrix:
-    - DOTNET_BUILD=1 CLI_VERSION=latest DOTNET_INSTALL_DIR="$PWD/.dotnetcli" PATH="$DOTNET_INSTALL_DIR:$PATH"
-    - NODE_BUILD=1
-
-mono:  
-  - 4.2.3
-os:  
-  - linux
-
 # safelist, only build theses branches
 branches:
   only:
   - master
   - dev
 
+language: csharp
+#sudo: required  
+#dist: trusty  
+os:  
+  - linux
+
+env:
+  matrix:
+    - mono: stable
+      DOTNET_BUILD=1 CLI_VERSION=latest DOTNET_INSTALL_DIR="$PWD/.dotnetcli" PATH="$DOTNET_INSTALL_DIR:$PATH" SOLUTION_NAME="NetCoreSample.sln"
+    - NODE_BUILD=1
+
 before_install:
-  - chmod +x ./scripts/dotnetbuild.sh
+  #- chmod +x ./scripts/dotnetbuild.sh
   - |
     if [[ "${DOTNET_BUILD+x}" ]]; then
-      sudo apt-get install -y gettext libcurl4-openssl-dev libicu-dev libssl-dev libunwind8 zlib1g
+      nuget restore $SOLUTION_NAME
+      #sudo apt-get install -y gettext libcurl4-openssl-dev libicu-dev libssl-dev libunwind8 zlib1g
     fi
 
 install:
   - |
     if [[ "${DOTNET_BUILD+x}" ]]; then
-      curl -sSL https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version "$CLI_VERSION" --install-dir "$DOTNET_INSTALL_DIR"
+
+      #curl -sSL https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version "$CLI_VERSION" --install-dir "$DOTNET_INSTALL_DIR"
       nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
     fi
   - |
@@ -47,7 +46,8 @@ install:
 script:  
   - |
     if [[ "${DOTNET_BUILD+x}" ]]; then
-      ./scripts/dotnetbuild.sh
+      #./scripts/dotnetbuild.sh
+      xbuild /p:Configuration=Release $SOLUTION_NAME
       mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./src/ITI.PrimarySchool.DAL.Tests/bin/Release/netcoreapp1.1/ITI.PrimarySchool.DAL.Tests.dll
     fi
   - |
