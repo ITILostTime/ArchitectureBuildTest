@@ -53,7 +53,18 @@ script:
       #js test
     fi
 
+before_deploy: "echo 'Deploy only if tagged'"
 #deploy
+deploy:
+  provider: releases
+  api_key: 8b222a726a980324384853a1223c5bc53b911d14
+  file_glob: true
+  file: 
+   - ./src/ITI.PrimarySchool.WebApp/App/primary-school/*
+   - ./src/ITI.PrimarySchool.WebApp/artifacts/*
+  skip_cleanup: true
+  on:
+    tags: true
 #cleanup
 #publish
 
