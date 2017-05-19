@@ -9,8 +9,8 @@ branches:
   - dev
 
 language: csharp
-#sudo: required  
-#dist: trusty  
+sudo: required  
+list: trusty  
 mono: 4.2.3
 os: linux
 
@@ -18,7 +18,7 @@ env:
   matrix:
     - DOTNET_BUILD=1 CLI_VERSION=latest DOTNET_INSTALL_DIR="$PWD/.dotnetcli" PATH="$DOTNET_INSTALL_DIR:$PATH" SOLUTION_NAME="NetCoreSample.sln"
     - NODE_BUILD=1
-    
+
 before_install:
   - chmod +x ./scripts/dotnetbuild.sh
   - |
