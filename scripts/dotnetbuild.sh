@@ -28,6 +28,6 @@ revision=$(printf "%04d" $revision)
 
 #switch release
 
-dotnet pack ./src/ITI.PrimarySchool.WebApp -c Release -o ./artifacts --version-suffix=$revision  
+dotnet pack ./src/ITI.PrimarySchool.WebApp -c Release -o $TRAVIS_BUILD_DIR/artifacts --version-suffix=$revision  
 
 echo "FINISHED BUILDING OF DOTNETCORE"

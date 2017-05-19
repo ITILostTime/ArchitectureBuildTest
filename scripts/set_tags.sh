@@ -1,4 +1,4 @@
-BRANCH="master"
+BRANCH="release"
 
 # Are we on the right branch?
 if [ "$TRAVIS_BRANCH" = "$BRANCH" ]; then
