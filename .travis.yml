@@ -1,68 +1,65 @@
-  #define 
-  git:
-    depth: 3
+#define 
+git:
+  depth: 3
 
-  # safelist, only build theses branches
-  branches:
-    only:
-    - master
-    - dev
+# safelist, only build theses branches
+branches:
+  only:
+  - master
+  - dev
 
-  language: csharp
-  #sudo: required  
-  #dist: trusty  
-  os:  
-    - linux
+language: csharp
+#sudo: required  
+#dist: trusty  
+mono: 4.2.3
+os: linux
 
-  env:
-    matrix:
-      - DOTNET_BUILD=1 CLI_VERSION=latest DOTNET_INSTALL_DIR="$PWD/.dotnetcli" PATH="$DOTNET_INSTALL_DIR:$PATH" SOLUTION_NAME="NetCoreSample.sln"
-      - NODE_BUILD=1
+env:
+  matrix:
+    - DOTNET_BUILD=1 CLI_VERSION=latest DOTNET_INSTALL_DIR="$PWD/.dotnetcli" PATH="$DOTNET_INSTALL_DIR:$PATH" SOLUTION_NAME="NetCoreSample.sln"
+    - NODE_BUILD=1
+    
+before_install:
+  - chmod +x ./scripts/dotnetbuild.sh
+  - |
+    if [[ "${DOTNET_BUILD+x}" ]]; then
+      sudo apt-get install -y gettext libcurl4-openssl-dev libicu-dev libssl-dev libunwind8 zlib1g
+    fi
 
-  before_install:
-    #- chmod +x ./scripts/dotnetbuild.sh
-    - |
-      if [[ "${DOTNET_BUILD+x}" ]]; then
-        nuget restore $SOLUTION_NAME
-        #sudo apt-get install -y gettext libcurl4-openssl-dev libicu-dev libssl-dev libunwind8 zlib1g
-      fi
-
-  install:
-    - |
-      if [[ "${DOTNET_BUILD+x}" ]]; then
-
-        #curl -sSL https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version "$CLI_VERSION" --install-dir "$DOTNET_INSTALL_DIR"
-        nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
-      fi
-    - |
-      if [[ "${NODE_BUILD+x}" ]]; then
-        nvm install stable
-        nvm use stable
-        pushd ./src/ITI.PrimarySchool.WebApp/App/primary-school && yarn && popd
-      fi
+install:
+  - |
+    if [[ "${DOTNET_BUILD+x}" ]]; then
+      curl -sSL https://raw.githubusercontent.com/dotnet/cli/rel/1.0.0/scripts/obtain/dotnet-install.sh | bash /dev/stdin --version "$CLI_VERSION" --install-dir "$DOTNET_INSTALL_DIR"
+      #nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+    fi
+  - |
+    if [[ "${NODE_BUILD+x}" ]]; then
+      nvm install stable
+      nvm use stable
+      pushd ./src/ITI.PrimarySchool.WebApp/App/primary-school && yarn && popd
+    fi
 
 
-  script:  
-    - |
-      if [[ "${DOTNET_BUILD+x}" ]]; then
-        #./scripts/dotnetbuild.sh
-        xbuild /p:Configuration=Release $SOLUTION_NAME
-        mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./src/ITI.PrimarySchool.DAL.Tests/bin/Release/netcoreapp1.1/ITI.PrimarySchool.DAL.Tests.dll
-      fi
-    - |
-      if [[ "${NODE_BUILD+x}" ]]; then
-        pushd ./src/ITI.PrimarySchool.WebApp/App/primary-school && yarn build && popd
-        #pushd ./src/ITI.PrimarySchool.WebApp/App/primary-school && yarn test && popd
-      fi
+script:  
+  - |
+    if [[ "${DOTNET_BUILD+x}" ]]; then
+      ./scripts/dotnetbuild.sh
+      #mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./src/ITI.PrimarySchool.DAL.Tests/bin/Release/netcoreapp1.1/ITI.PrimarySchool.DAL.Tests.dll
+    fi
+  - |
+    if [[ "${NODE_BUILD+x}" ]]; then
+      pushd ./src/ITI.PrimarySchool.WebApp/App/primary-school && yarn build && popd
+      #pushd ./src/ITI.PrimarySchool.WebApp/App/primary-school && yarn test && popd
+    fi
 
-  #cleanup
-  #deploy
-  #publish
+#cleanup
+#deploy
+#publish
 
-  notifications:
-    email:
-      recipients:
-        - kore@intechinfo.fr
-        - vanbutsele@intechinfo.fr
-      on_success: always
-      on_failure: always
+notifications:
+  email:
+    recipients:
+      - kore@intechinfo.fr
+      - vanbutsele@intechinfo.fr
+    on_success: always
+    on_failure: always
