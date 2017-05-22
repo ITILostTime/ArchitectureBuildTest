@@ -12,15 +12,15 @@ if [ "$TRAVIS_BRANCH" = "$BRANCH" ]; then
       echo -e "Starting to tag commit.\n"
       #set the losttime adress ?
       
-      #git config --global user.email "travis@travis-ci.org"
-      #git config --global user.name "Travis"
+      git config --global user.email "travis@travis-ci.org"
+      git config --global user.name "Travis"
 
       #merge the release into master with the tag
 
       # Add tag and push to release.
       git tag -a v$SEMVER-${TRAVIS_BUILD_NUMBER} -m "Travis build $TRAVIS_BUILD_NUMBER pushed a tag."
-      git push origin --tags
-      git fetch origin
+      #git push origin --tags
+      #git fetch origin
       echo -e "Done magic with tags.\n"
   fi
   fi

@@ -61,7 +61,7 @@ deploy:
   file_glob: true
   file: "$TRAVIS_BUILD_DIR/artifacts/*"
   on:
-    branch: release
+    branch: master
     tags: true
     repo: ITILostTime/ArchitectureBuildTest
 

@@ -5,9 +5,9 @@ set -e
 
 artifactsFolder="./artifacts"
 
-if [ -d $artifactsFolder ]; then  
-  rm -R $artifactsFolder
-fi
+#if [ -d $artifactsFolder ]; then  
+#  rm -R $artifactsFolder
+#fi
 
 dotnet restore
 
@@ -30,5 +30,10 @@ revision=$(printf "%04d" $revision)
 #switch release
 
 dotnet pack ./src/ITI.PrimarySchool.WebApp -c Release -o $TRAVIS_BUILD_DIR/artifacts --version-suffix=$revision  
-
+# look for empty dir 
+if [ "$(ls -A $TRAVIS_BUILD_DIR/artifacts)" ]; then
+     echo "Take action $TRAVIS_BUILD_DIR/artifacts is not Empty"
+else
+    echo "$TRAVIS_BUILD_DIR/artifacts is Empty"
+fi
 echo "FINISHED BUILDING OF DOTNETCORE"
