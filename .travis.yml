@@ -17,7 +17,7 @@ os:
 
 before_install:
 #check if there is not a TAG or not on Branch : release or dev : leave the build
-- if [ [ ! -z "$TRAVIS_TAG"] || ["$TRAVIS_BRANCH" != "release"] || ["$TRAVIS_BRANCH" != "dev"] ]; then 
+- if [ [ ! -z "$TRAVIS_TAG"] || [ "$TRAVIS_BRANCH" != "release"] || [ "$TRAVIS_BRANCH" != "dev"] ]; then 
     exit 0; 
   fi
 - chmod +x ./scripts/dotnetbuild.sh
