@@ -62,6 +62,7 @@ deploy:
   provider: releases
   api_key:
     secure: vXYn/6qo+wBp3EQbkBciSnR7tO1ZdU1DbIdNVcFP9a5nyTay7GtTcCUScbSelcHF8hD8e6asRO0Qh49eBPyXIsJKBROZeerdfaDyb0sJQ7xY5+sj8/YtcjJJkB2o1h6MCYG58GdoOUJ/ZVNmhfr8DO8RjOJ5VD0OuZTqSnXOK5BthOanRoaE8at+KkBDEyat4wFv6E5S0MvirFZPtIcZfesBhYoRZ/VFRwv8PKxqKlhLi6DoW7ZncP2+I0vZp5CmT73x81UKhAfPe1FwDnA3GXQUYSDH7lZaK27AEakjO9BkcT8mChZJcc0qF3GK7CZoxLWvsBaKUZl3PLjD4BZsDn8n8EVE4Mgj46JC/+aUJ0HvqPjxx8Kis3zC36MJAi3ByvorryAu7njkAsNsf49q4fO9/zhLtILisB+7XcJy0z6yastwbR2YfVcT1dz1bBlC0BUOCE+n/ki2W+vWqhIP9KTY9eflkeeF5lNKA8qxej+J3fOIwBB1m9sRDaBVOAShh/g/Ude9N+zE14kaxDA5Yho5fQxR58nv8GYsSnCgvThaeiLNY7GHnMiz55oqXxdLB9FbmZ1ub/uj1Vq8+Hd+Kkm3Lt8/AbaQEfPZJGjjNqQcit4gyZVmoztF4q3UdoQVD/1VF53pkHOAW12nO8nlBAdDdYCiqewcrl0mIyqYEMM=
+  file_glob: true
   file: "$TRAVIS_BUILD_DIR/artifacts/*"
   on:
     tags: true
