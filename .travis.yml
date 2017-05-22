@@ -14,19 +14,17 @@ mono:
 - 4.2.3
 os:
 - linux
-branches:
-  only:
- #if dev : test but not tag and deploy 
-  - dev
-#if release : test, tag and deploy
-  - release
+
 before_install:
+#check if there is not a TAG or not on Branch : release or dev : leave the build
+- if [ ! -z "$TRAVIS_TAG" || "$TRAVIS_BRANCH" =! "release" || "$TRAVIS_BRANCH" =! "dev"]; then exit 0;
 - chmod +x ./scripts/dotnetbuild.sh
 - chmod +x ./scripts/set_tags.sh
 - |
   if [[ "${DOTNET_BUILD+x}" ]]; then
     sudo apt-get install -y gettext libcurl4-openssl-dev libicu-dev libssl-dev libunwind8 zlib1g
   fi
+
 install:
 - |
   if [[ "${DOTNET_BUILD+x}" ]]; then
