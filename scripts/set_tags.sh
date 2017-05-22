@@ -19,8 +19,8 @@ if [ "$TRAVIS_BRANCH" = "$BRANCH" ]; then
 
       # Add tag and push to release.
       git tag -a v$SEMVER-${TRAVIS_BUILD_NUMBER} -m "Travis build $TRAVIS_BUILD_NUMBER pushed a tag."
-      #git push origin --tags
-      #git fetch origin
+      git push origin --tags
+      git fetch origin
       echo -e "Done magic with tags.\n"
   fi
   fi
