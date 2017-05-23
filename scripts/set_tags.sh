@@ -10,13 +10,16 @@ if [ "$TRAVIS_BRANCH" = "$BRANCH" ]; then
       
       git config --global user.email "travis@travis-ci.org"
       git config --global user.name "Travis"
-
-      #merge the release into master with the tag
+      echo -e "changed name"
 
       # Add tag and push to release.
       git tag -a v$SEMVER-${TRAVIS_BUILD_NUMBER} -m "Travis build $TRAVIS_BUILD_NUMBER pushed a tag."
+      echo -e "tag commit"
+      echo - "push with : ${GIT_DEPLOY_REPO}"
       git push origin --tags --repo="${GIT_DEPLOY_REPO}"
       git fetch origin
-      echo -e "Done magic with tags.\n"
+     if [ ! -z "$TRAVIS_TAG" ]; then
+      echo -e "Tag added, pushed and fetched.\n"
+     fi
   fi
 fi
