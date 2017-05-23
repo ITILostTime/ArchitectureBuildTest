@@ -10,9 +10,6 @@ env:
   matrix:
   - DOTNET_BUILD=1 CLI_VERSION=latest DOTNET_INSTALL_DIR="$PWD/.dotnetcli" PATH="$DOTNET_INSTALL_DIR:$PATH"
   - NOD E_BUILD=1
-  global:
-  # GITHUB_TOKEN
-  - DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 mono:
 - 4.2.3
