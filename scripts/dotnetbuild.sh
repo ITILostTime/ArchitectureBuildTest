@@ -11,7 +11,7 @@ GREEN='\033[0;32m'
 #if [ -d $artifactsFolder ]; then  
 #  rm -R $artifactsFolder
 #fi
-echo -e "${PURPLE}Starting to building DOTNETCORE${NC}"
+echo -e "${PURPLE}Starting to build DOTNETCORE${NC}"
 dotnet restore
 
 # Ideally we would use the 'dotnet test' command to test netcoreapp and net451 so restrict for now 
