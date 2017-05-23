@@ -31,7 +31,7 @@ before_install:
 #check if we are not not a TAG or not on Branch : release or dev : leave the build
 #- if [ -z "$TRAVIS_TAG" ]; then if [ "$TRAVIS_BRANCH" != "release" ]; then if [ "$TRAVIS_BRANCH" != "dev" ]; then exit 0; fi fi fi
 - chmod +x ./scripts/dotnetbuild.sh
-#- chmod +x ./scripts/set_tags.sh
+- chmod +x ./scripts/set_tags.sh
 - |
   if [[ "${DOTNET_BUILD+x}" ]]; then
     sudo apt-get install -y gettext libcurl4-openssl-dev libicu-dev libssl-dev libunwind8 zlib1g
@@ -62,7 +62,7 @@ script:
 
 #set tag version based on the file at the root of the system
 after_success:
-#- ./scripts/set_tags.sh
+- ./scripts/set_tags.sh
 
 before_deploy:
 - echo "deploying to GitHub releases"

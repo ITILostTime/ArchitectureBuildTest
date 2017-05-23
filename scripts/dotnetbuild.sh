@@ -36,8 +36,8 @@ dotnet pack ./src/ITI.PrimarySchool.WebApp -c Release -o $TRAVIS_BUILD_DIR/artif
 
 # look for empty dir 
 if [ "$(ls -A $TRAVIS_BUILD_DIR/artifacts)" ]; then
-     echo "\n ${GREEN} Take action $TRAVIS_BUILD_DIR/artifacts is not Empty${NC}"
+     echo -e "\n ${GREEN} Take action $TRAVIS_BUILD_DIR/artifacts is not Empty ${NC}"
 else
-    echo "\n ${RED} $TRAVIS_BUILD_DIR/artifacts is Empty${NC}"
+    echo -e "\n ${RED} $TRAVIS_BUILD_DIR/artifacts is Empty ${NC}"
 fi
-echo "${PURPLE}FINISHED BUILDING OF DOTNETCORE${NC}"
+echo -e "${PURPLE} FINISHED BUILDING OF DOTNETCORE ${NC}"
