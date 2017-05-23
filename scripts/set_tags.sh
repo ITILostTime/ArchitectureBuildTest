@@ -11,7 +11,7 @@ if [ "$TRAVIS_BRANCH" = "$BRANCH" ]; then
       echo -e "tag commit"
       echo -e "github key : ${GITHUBKEY}"
       echo -e "push with : ${GIT_DEPLOY_REPO}"
-      git push origin --tags --repo="${GIT_DEPLOY_REPO}"
+      git push --tags --repo="${GIT_DEPLOY_REPO}"
       git fetch origin
      if [ ! -z "$TRAVIS_TAG" ]; then
       echo -e "Tag added, pushed and fetched.\n"
