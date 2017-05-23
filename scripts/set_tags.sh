@@ -15,6 +15,7 @@ if [ "$TRAVIS_BRANCH" = "$BRANCH" ]; then
       echo -e "push to : ${GIT_DEPLOY_REPO}"
       git push --tags --repo="${GIT_DEPLOY_REPO}"
       git fetch --tags
+      echo git describe --abbrev=0 --tags
       echo -e "Travis tag is : $TRAVIS_TAG"
       TRAVIS_TAG=$VERSIONTAG
       echo -e "Travis tag is now : $TRAVIS_TAG"
