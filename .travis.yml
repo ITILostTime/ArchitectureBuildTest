@@ -72,6 +72,7 @@ deploy:
   file: "$TRAVIS_BUILD_DIR/artifacts/*"
   on:
     tags: true
+    branch: release
     repo: ITILostTime/ArchitectureBuildTest
     
 notifications:

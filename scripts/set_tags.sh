@@ -1,5 +1,5 @@
 BRANCH="release"
-SEMVER="0.0.8" #VERY BAD !
+SEMVER="0.0.9" #VERY BAD !
 
 # Are we on the right branch?
 if [ "$TRAVIS_BRANCH" = "$BRANCH" ]; then
@@ -9,15 +9,14 @@ if [ "$TRAVIS_BRANCH" = "$BRANCH" ]; then
       echo -e "Starting to tag commit.\n"
       # Add tag and push to release.
       git tag -a v$SEMVER-${TRAVIS_BUILD_NUMBER} -m "Travis build $TRAVIS_BUILD_NUMBER pushed a tag."
-      echo -e "tag commit"
-      echo -e "github key : ${GITHUBKEY}"
-      echo -e "push with : ${GIT_DEPLOY_REPO}"
+      echo -e "tag commit: v$SEMVER-${TRAVIS_BUILD_NUMBER}"
+      echo -e "push to : ${GIT_DEPLOY_REPO}"
       git push --tags --repo="${GIT_DEPLOY_REPO}"
       git fetch --tags
-     if [ ! -z "$TRAVIS_TAG" ]; then
-      echo -e "Tag added, pushed and fetched.\n"
+     if [ -z "$TRAVIS_TAG" ]; then
+      echo -e "Tag empty \n"
       else
-      echo -e "NOPE \n"
+      echo -e "Tag $TRAVIS_TAG added, pushed and fetched. \n"
      fi
   fi
 fi
