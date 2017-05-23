@@ -1,7 +1,7 @@
 git:
   depth: 3
 
-#switch to node as default
+#switch to node as default next time
 language: csharp
 solution: NetCoreSample.sln
 sudo: required
