@@ -10,8 +10,10 @@ if [ "$TRAVIS_BRANCH" = "$BRANCH" ]; then
       echo -e "tag of the commit : $VERSIONTAG \n"
       # Add tag and push to release.
       git tag -a $VERSIONTAG -m "Travis build $TRAVIS_BUILD_NUMBER pushed a tag."
+      echo -e "Travis tag is now : $TRAVIS_TAG"
+
       echo -e "push to : ${GIT_DEPLOY_REPO}"
-      git push $VERSIONTAG --repo="${GIT_DEPLOY_REPO}"
+      git push $VERSIONTAG HEAD:release --repo="${GIT_DEPLOY_REPO}"
       git fetch --tags
       echo -e "Travis tag is : $TRAVIS_TAG"
       TRAVIS_TAG=$VERSIONTAG
