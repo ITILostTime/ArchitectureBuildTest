@@ -1,5 +1,5 @@
 BRANCH="release"
-SEMVER="0.0.10" #VERY BAD !
+SEMVER="0.0.11" #VERY BAD !
 VERSIONTAG="v$SEMVER-${TRAVIS_BUILD_NUMBER}"
 
 # Are we on the right branch?
