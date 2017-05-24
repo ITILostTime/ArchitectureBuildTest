@@ -4,5 +4,5 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
 done < $TRAVIS_BUILD_DIR/version.txt
 VERSION="v$SEMVER-${TRAVIS_BUILD_NUMBER}"
 
-cd $TRAVIS_BUILD_DIR/src/ITI.PrimarySchool.WebApp/wwwroot
-zip -r dist $TRAVIS_BUILD_DIR/artifacts/
+zip -r dist $TRAVIS_BUILD_DIR/src/ITI.PrimarySchool.WebApp/wwwroot/dist
+cp -R dist.zip $TRAVIS_BUILD_DIR/artifacts/
