@@ -26,13 +26,9 @@ dotnet restore
 #./src/ITI.PrimarySchool.DAL.Test/bin/Release/net451/*/dotnet-test-xunit.exe \
 #./src/ITI.PrimarySchool.DAL.Test/bin/Release/net451/*/TEST_PROJECT_NAME.dll
 
-#set tag version based on the file at the root of the system
-revision=${TRAVIS_JOB_ID:=1}  
-revision=$(printf "%04d" $revision) 
-
 #switch release
 
-dotnet pack ./src/ITI.PrimarySchool.WebApp -c Release -o $TRAVIS_BUILD_DIR/artifacts --version-suffix=$revision  
+dotnet pack ./src/ITI.PrimarySchool.WebApp -c Release -o $TRAVIS_BUILD_DIR/artifacts --version-suffix=$VERSION 
 
 # look for empty dir 
 if [ "$(ls -A $TRAVIS_BUILD_DIR/artifacts)" ]; then
