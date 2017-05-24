@@ -17,12 +17,12 @@ if [ "$TRAVIS_BRANCH" = "$BRANCH" ]; then
       git fetch --tags
       git describe --abbrev=0 --tags
       echo -e "Tag $VERSIONTAG added, pushed and fetched. \n"
-      git fetch origin
-      git checkout master
-      git merge release
+      git fetch "origin"
+      git checkout -B "master" "origin/master"
+      git merge "release"
       echo -e "merged into master"
       git push --repo="${GIT_DEPLOY_REPO}"
       echo -e "pushed into master"
-      git checkout release
+      git checkout "release"
   fi
 fi
