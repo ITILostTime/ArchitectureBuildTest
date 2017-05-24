@@ -1,5 +1,8 @@
+#define target branch
 BRANCH="release"
-SEMVER="0.0.11" #VERY BAD !
+while IFS='' read -r line || [[ -n "$line" ]]; do
+    SEMVER=$line
+done < "../version.txt"
 VERSIONTAG="v$SEMVER-${TRAVIS_BUILD_NUMBER}"
 
 # Are we on the right branch?
@@ -16,9 +19,6 @@ if [ "$TRAVIS_BRANCH" = "$BRANCH" ]; then
       git push --tags --repo="${GIT_DEPLOY_REPO}"
       git fetch --tags
       git describe --abbrev=0 --tags
-      echo -e "Travis tag is : $TRAVIS_TAG"
-      TRAVIS_TAG=$VERSIONTAG
-      echo -e "Travis tag is now : $TRAVIS_TAG"
       if [ -z "$TRAVIS_TAG" ]; then
         echo -e "Tag empty \n"
         else
