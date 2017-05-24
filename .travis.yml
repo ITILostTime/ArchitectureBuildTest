@@ -58,6 +58,7 @@ script:
 #set tag version based on the file at the root of the system
 after_success:
 - ./scripts/set_tags.sh
+- ./scripts/pack_dist.sh
 
 before_deploy:
 - echo "deploying to GitHub releases"
