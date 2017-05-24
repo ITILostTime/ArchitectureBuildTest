@@ -69,7 +69,8 @@ deploy:
   api_key:
     secure: $GITHUBKEY
   file_glob: true
-  file: "$TRAVIS_BUILD_DIR/artifacts/*"
+  file: 
+  - "$TRAVIS_BUILD_DIR/artifacts/*"
   on:
     #tags: true
     branch: release

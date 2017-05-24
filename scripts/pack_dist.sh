@@ -5,4 +5,6 @@ done < $TRAVIS_BUILD_DIR/version.txt
 VERSION="v$SEMVER-${TRAVIS_BUILD_NUMBER}"
 
 zip -r dist $TRAVIS_BUILD_DIR/src/ITI.PrimarySchool.WebApp/wwwroot/dist
+echo -r "zipped dist"
+ls
 cp -R dist.zip $TRAVIS_BUILD_DIR/artifacts/
