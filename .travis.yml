@@ -1,5 +1,7 @@
 git:
   depth: 3
+
+#switch to node as default next time
 language: csharp
 solution: NetCoreSample.sln
 sudo: required
@@ -8,20 +10,29 @@ env:
   matrix:
   - DOTNET_BUILD=1 CLI_VERSION=latest DOTNET_INSTALL_DIR="$PWD/.dotnetcli" PATH="$DOTNET_INSTALL_DIR:$PATH"
   - NODE_BUILD=1
+  
 mono:
 - 4.2.3
 os:
 - linux
+
 branches:
   only:
-  - master
+  - release
   - dev
+
 before_install:
+#check if we are not not a TAG or not on Branch : release or dev : leave the build
+#- if [ -z "$TRAVIS_TAG" ]; then if [ "$TRAVIS_BRANCH" != "release" ]; then if [ "$TRAVIS_BRANCH" != "dev" ]; then exit 0; fi fi fi
 - chmod +x ./scripts/dotnetbuild.sh
+- chmod +x ./scripts/set_version.sh
+- chmod +x ./scripts/set_tags.sh
+- ./scripts/set_version.sh
 - |
   if [[ "${DOTNET_BUILD+x}" ]]; then
     sudo apt-get install -y gettext libcurl4-openssl-dev libicu-dev libssl-dev libunwind8 zlib1g
   fi
+
 install:
 - |
   if [[ "${DOTNET_BUILD+x}" ]]; then
@@ -33,6 +44,7 @@ install:
     nvm use stable
     pushd ./src/ITI.PrimarySchool.WebApp/App/primary-school && yarn && popd
   fi
+
 script:
 - |
   if [[ "${DOTNET_BUILD+x}" ]]; then
@@ -43,19 +55,28 @@ script:
     pushd ./src/ITI.PrimarySchool.WebApp/App/primary-school && yarn build && popd
     #js test
   fi
+
+#set tag version based on the file at the root of the system
 after_success:
-- sh set_tags.sh
+- ./scripts/set_tags.sh
+
 before_deploy:
 - echo "deploying to GitHub releases"
+
 deploy:
+  skip_cleanup: true
   provider: releases
   api_key:
-    secure: vXYn/6qo+wBp3EQbkBciSnR7tO1ZdU1DbIdNVcFP9a5nyTay7GtTcCUScbSelcHF8hD8e6asRO0Qh49eBPyXIsJKBROZeerdfaDyb0sJQ7xY5+sj8/YtcjJJkB2o1h6MCYG58GdoOUJ/ZVNmhfr8DO8RjOJ5VD0OuZTqSnXOK5BthOanRoaE8at+KkBDEyat4wFv6E5S0MvirFZPtIcZfesBhYoRZ/VFRwv8PKxqKlhLi6DoW7ZncP2+I0vZp5CmT73x81UKhAfPe1FwDnA3GXQUYSDH7lZaK27AEakjO9BkcT8mChZJcc0qF3GK7CZoxLWvsBaKUZl3PLjD4BZsDn8n8EVE4Mgj46JC/+aUJ0HvqPjxx8Kis3zC36MJAi3ByvorryAu7njkAsNsf49q4fO9/zhLtILisB+7XcJy0z6yastwbR2YfVcT1dz1bBlC0BUOCE+n/ki2W+vWqhIP9KTY9eflkeeF5lNKA8qxej+J3fOIwBB1m9sRDaBVOAShh/g/Ude9N+zE14kaxDA5Yho5fQxR58nv8GYsSnCgvThaeiLNY7GHnMiz55oqXxdLB9FbmZ1ub/uj1Vq8+Hd+Kkm3Lt8/AbaQEfPZJGjjNqQcit4gyZVmoztF4q3UdoQVD/1VF53pkHOAW12nO8nlBAdDdYCiqewcrl0mIyqYEMM=
+    secure: $GITHUBKEY
   file_glob: true
-  file: "./src/ITI.PrimarySchool.WebApp/artifacts/*"
+  file: 
+    - "$TRAVIS_BUILD_DIR/artifacts/*"
+    - "$TRAVIS_BUILD_DIR/src/ITI.PrimarySchool.WebApp/wwwroot/dist/*"
   on:
-    branch: master
+    #tags: true
+    branch: release
     repo: ITILostTime/ArchitectureBuildTest
+    
 notifications:
   email:
     recipients:

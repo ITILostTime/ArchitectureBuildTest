@@ -4,11 +4,14 @@
 set -e
 
 artifactsFolder="./artifacts"
+PURPLE='\033[0;35m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
 
-if [ -d $artifactsFolder ]; then  
-  rm -R $artifactsFolder
-fi
-
+#if [ -d $artifactsFolder ]; then  
+#  rm -R $artifactsFolder
+#fi
+echo -e "${PURPLE}Starting to build DOTNETCORE${NC}"
 dotnet restore
 
 # Ideally we would use the 'dotnet test' command to test netcoreapp and net451 so restrict for now 
@@ -23,11 +26,14 @@ dotnet restore
 #./src/ITI.PrimarySchool.DAL.Test/bin/Release/net451/*/dotnet-test-xunit.exe \
 #./src/ITI.PrimarySchool.DAL.Test/bin/Release/net451/*/TEST_PROJECT_NAME.dll
 
-revision=${TRAVIS_JOB_ID:=1}  
-revision=$(printf "%04d" $revision) 
-
 #switch release
 
-dotnet pack ./src/ITI.PrimarySchool.WebApp -c Release -o ./artifacts --version-suffix=$revision  
+dotnet pack ./src/ITI.PrimarySchool.WebApp -c Release -o $TRAVIS_BUILD_DIR/artifacts --version-suffix=$VERSION 
 
-echo "FINISHED BUILDING OF DOTNETCORE"
+# look for empty dir 
+if [ "$(ls -A $TRAVIS_BUILD_DIR/artifacts)" ]; then
+     echo -e "\n ${GREEN} Take action $TRAVIS_BUILD_DIR/artifacts is not Empty ${NC}"
+else
+    echo -e "\n ${RED} $TRAVIS_BUILD_DIR/artifacts is Empty ${NC}"
+fi
+echo -e "${PURPLE} FINISHED BUILDING OF DOTNETCORE ${NC}"
