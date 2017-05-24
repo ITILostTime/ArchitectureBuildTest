@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 #define target branch
 BRANCH="release"
 while IFS='' read -r line || [[ -n "$line" ]]; do
