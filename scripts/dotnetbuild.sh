@@ -7,6 +7,10 @@ artifactsFolder="./artifacts"
 PURPLE='\033[0;35m'
 RED='\033[0;31m'
 GREEN='\033[0;32m'
+while IFS='' read -r line || [[ -n "$line" ]]; do
+    SEMVER=$line
+done < $TRAVIS_BUILD_DIR/version.txt
+VERSION="v$SEMVER-${TRAVIS_BUILD_NUMBER}"
 
 #if [ -d $artifactsFolder ]; then  
 #  rm -R $artifactsFolder

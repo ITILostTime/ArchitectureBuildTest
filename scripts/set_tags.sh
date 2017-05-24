@@ -1,5 +1,9 @@
 #define target branch
 BRANCH="release"
+while IFS='' read -r line || [[ -n "$line" ]]; do
+    SEMVER=$line
+done < $TRAVIS_BUILD_DIR/version.txt
+VERSION="v$SEMVER-${TRAVIS_BUILD_NUMBER}"
 
 # Are we on the right branch?
 if [ "$TRAVIS_BRANCH" = "$BRANCH" ]; then
@@ -12,7 +16,7 @@ if [ "$TRAVIS_BRANCH" = "$BRANCH" ]; then
       git push --tags --repo="${GIT_DEPLOY_REPO}"
       git fetch --tags
       git describe --abbrev=0 --tags
-      echo -e "Tag $VERSIONTAG added, pushed and fetched. \n"
+      echo -e "Tag $VERSION added, pushed and fetched. \n"
       #git fetch "origin"
       #git checkout -B "master" "origin/master"
       #git merge "release"
