@@ -21,5 +21,11 @@ if [ "$TRAVIS_BRANCH" = "$BRANCH" ]; then
         else
         echo -e "Tag $TRAVIS_TAG added, pushed and fetched. \n"
       fi
+      git checkout master
+      git merge release
+      echo -e "merged into master"
+      git push --repo="${GIT_DEPLOY_REPO}" master 
+      echo -e "pushed into master"
+      git checkout release
   fi
 fi
