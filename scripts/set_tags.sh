@@ -2,7 +2,7 @@
 BRANCH="release"
 while IFS='' read -r line || [[ -n "$line" ]]; do
     SEMVER=$line
-done < "../version.txt"
+done < ../version.txt
 VERSIONTAG="v$SEMVER-${TRAVIS_BUILD_NUMBER}"
 
 # Are we on the right branch?
