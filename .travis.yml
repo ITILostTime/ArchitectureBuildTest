@@ -70,7 +70,7 @@ deploy:
   file_glob: true
   file: 
     - "$TRAVIS_BUILD_DIR/artifacts/*"
-    - "$TRAVIS_BUILD_DIR/src/ITI.PrimarySchool.WebApp/wwwroot/dist/*"
+    - "$TRAVIS_BUILD_DIR/src/ITI.PrimarySchool.WebApp/wwwroot/dist/"
   on:
     #tags: true
     branch: release
