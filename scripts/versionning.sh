@@ -24,7 +24,7 @@ if [ "$TRAVIS_BRANCH" = "$BRANCH" ]; then
       git checkout master
       git merge release
       echo -e "merged into master"
-      git push --repo="${GIT_DEPLOY_REPO}" master 
+      git push --repo="${GIT_DEPLOY_REPO}"
       echo -e "pushed into master"
       git checkout release
   fi
